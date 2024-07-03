@@ -42,8 +42,7 @@ jobs:
       - name: Run the gate
         env:
           DD_BETA_COMMANDS_ENABLED: true
-          DD_API_KEY: ${{ secrets.DD_API_KEY_STAGING }}
-          DD_APP_KEY: ${{ secrets.DD_APP_KEY_STAGING }}
-          DD_SITE: datad0g.com
+          DD_API_KEY: ${{ secrets.DD_API_KEY_ORG2 }}
+          DD_APP_KEY: ${{ secrets.DD_APP_KEY_ORG2 }}
         run: yarn launch gate evaluate
         working-directory: datadog-ci
