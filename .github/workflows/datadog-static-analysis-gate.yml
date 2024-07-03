@@ -27,10 +27,23 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install node
         uses: actions/setup-node@v3
-      - run: yarn global add @datadog/datadog-ci
-      - run: >
-          DD_BETA_COMMANDS_ENABLED=true
-          DD_API_KEY=${{ secrets.DD_API_KEY_STAGING }}
-          DD_APP_KEY=${{ secrets.DD_APP_KEY_STAGING }}
-          DD_SITE="datad0g.com"
-          datadog-ci gate evaluate
+      - name: Checkout datadog-ci
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          repository: DataDog/datadog-ci
+          path: datadog-ci
+      - name: Change to branch
+        run: git checkout juan-fernandez/add-sha-for-pull-requests
+        working-directory: datadog-ci
+      - name: Install dependencies
+        run: yarn
+        working-directory: datadog-ci
+      - name: Run the gate
+        env:
+          DD_BETA_COMMANDS_ENABLED: true
+          DD_API_KEY: ${{ secrets.DD_API_KEY_STAGING }}
+          DD_APP_KEY: ${{ secrets.DD_APP_KEY_STAGING }}
+          DD_SITE: datad0g.com
+        run: yarn launch gate evaluate
+        working-directory: datadog-ci
