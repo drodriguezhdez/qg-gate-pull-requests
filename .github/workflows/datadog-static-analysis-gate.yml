@@ -19,7 +19,6 @@ jobs:
         dd_app_key: ${{ secrets.DD_APP_KEY_ORG2 }}
         dd_service: "ci-gates-synthetic-helper"
         dd_env: "testing-github-action"
-        dd_site: "datad0g.com"
   datadog-gate-staging:
     needs: check-quality-staging
     runs-on: ubuntu-latest
