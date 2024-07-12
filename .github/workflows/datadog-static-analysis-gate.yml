@@ -3,6 +3,7 @@ name: Run the SA gate on a new commit
 on:
   pull_request:
   workflow_dispatch:
+  push:
 
 jobs:
   check-quality-prod:
